@@ -31,14 +31,15 @@ Plugin 'gmarik/Vundle.vim'
 " Avoid a name conflict with L9
 "Plugin 'user/L9', {'name': 'newL9'}
 
-Plugin 'Lokaltog/powerline'
-Plugin 'scrooloose/nerdtree'
+"Plugin Lokaltog/powerline
+Plugin 'bling/vim-airline'
+"Plugin 'scrooloose/nerdtree'
 Plugin 'Yggdroot/indentLine'
 Plugin 'flazz/vim-colorschemes'
 Plugin 'rainux/vim-desert-warm-256'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'scrooloose/syntastic'
-Plugin 'L9'
+"Plugin 'L9'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -61,22 +62,26 @@ filetype plugin indent on    " required
 "==============================================================================
 
 " syntax on
-syn on 
+"syn on 
+syntax on
 
 " spell checking
-set spell
+"set spell
+setlocal spell spelllang=en_us
 
 " set number
 set nu 
 
 " set terminal color support
-if $COLORTERM == 'gnome-terminal'
-    set t_Co=256
+"set term=builtin_beos-ansi
+"set t_Co=256
+"if $COLORTERM == 'gnome-terminal'
+    "set t_Co=256
     "set t_Co=gnome-256color
     "set t_Co=xterm-256color
-else
-    set t_Co=screen-256color
-endif
+"else
+"    set t_Co=screen-256color
+"endif
 
 " colorscheme
 
@@ -93,22 +98,24 @@ endif
 " This color scheme use plugin from
 " https://github.com/rainus/vim-desert-warm-256
 if !has('gui_running')
-    colorscheme desert-warm-256
+    "colorscheme desert-warm-256
+    colorscheme desert
 else
-    colorscheme monokai
+    "colorscheme monokai
+    colorscheme desert
 endif
 
 " needn't set nocompatible because when exists .vimrc, nocompatible is set
 " automatically
 " set nocompatible
 
-" indent automatically depending on filetype
+" indent automatically, depending on filetype
 """
 " filetype indent on
 """
 
 " set leader key
-"let mapleader='\'
+let mapleader='\'
 
 " set autoindent
 set ai 
@@ -122,11 +129,13 @@ set hls
 " wrap text instead of being on one line
 set lbr
 
-" Allow the cursor to move just past the end of the line 
+" Allow the cursor to move just one character past the end of the line 
 " set virtualedit=onemore
 set ve=onemore
 
 " set the file search path
+" double star (double asterisk, double wildcard) means the files in all
+" subdirectories
 set path=.,,**
 
 " allow backspacing over everything in insert mode
@@ -187,19 +196,25 @@ set fdm=indent
 " show cursor line at the current line (Ensure to put this line behind the
 " color scheme)
 "set cursorline
+"set cursorline cursorcolumn
 set cursorline cursorcolumn
-"highlight cursorline term=bold cterm=bold ctermfg=darkred ctermfg=White guibg=Grey40 guifg=white
+highlight CursorLine term=bold cterm=bold ctermfg=none ctermbg=none guibg=White guifg=Grey35
+hi cursorcolumn term=bold cterm=bold ctermfg=none ctermbg=none guibg=White guifg=Grey35
+"highlight cursorline term=bold cterm=bold ctermfg=darkred ctermbg=White guibg=Grey40 guifg=white
+"highlight cursorline term=bold term=bold ctermfg=darkred ctermfg=blue guibg=blue guifg=blue
 "highlight CursorLine term=bold cterm=bold guibg=Grey40 guifg=white
 "highlight CursorLine term=bold cterm=bold guibg=#222222 guifg=#2b506e gui=none
 "highlight CursorLine term=bold cterm=bold guibg=Grey40 guifg=LightBlue gui=underline
 "highlight CursorLine term=bold cterm=bold guibg=Grey21 gui=none
-highlight CursorLine term=bold cterm=bold guibg=Grey15 gui=none
+"highlight CursorLine term=bold cterm=bold guibg=Grey15 gui=none
 "highlight CursorColumn term=bold cterm=bold guibg=Grey40 guifg=white
 "hi CursorColumn term=bold cterm=bold ctermbg=none ctermfg=none guibg=Grey40 guifg=white
 "hi CursorColumn term=bold cterm=bold ctermbg=none ctermfg=none guibg=#222222 guifg=#2b506e gui=underline
 "hi CursorColumn term=bold cterm=bold ctermbg=none ctermfg=none guibg=Grey40 guifg=LightBlue gui=none 
+"hi CursorColumn term=bold cterm=bold  ctermbg=darkred ctermfg=blue guibg=blue guifg=LightBlue gui=bold 
 "hi CursorColumn term=bold cterm=bold ctermbg=none ctermfg=none guibg=Grey21 gui=none
-hi CursorColumn term=bold cterm=bold ctermbg=none ctermfg=none guibg=Grey15 gui=none
+"hi CursorColumn term=bold cterm=bold ctermbg=none ctermfg=none guibg=Grey15 gui=none
+"hi CursorColumn term=bold cterm=bold ctermbg=White ctermfg=darkred guibg=Grey15 gui=none
 
 " an alternative way to display number at the SignColumn
 "set relativenumber
@@ -214,7 +229,7 @@ set guicursor+=a:blinkon0
 " let the complete behaviour looks like the IDEs (see the VimTip1228)
 set completeopt=longest,menuone
 
-" set when pressing up down PageDown PageUp to display information
+" set so that when pressing up down PageDown PageUp to display information
 inoremap <expr> <Down>     pumvisible() ? "\<C-n>" : "\<Down>"
 inoremap <expr> <Up>       pumvisible() ? "\<C-p>" : "\<Up>"
 inoremap <expr> <PageDown> pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<PageDown>"
@@ -225,96 +240,39 @@ inoremap <expr> <PageUp>   pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<PageUp>"
 " just as <C-Y> does.
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
+" automatically open fold everytime enter into buffer
+"normal zR\<CR>
+"autocommand BufWinEnter * :normal zR\<cr>
+autocmd BufWinEnter * :normal zR\<cr>
+
+" Plugin airline
+" Change status displayed in status bar from Insert to normal faster
+"set timeoutlen=500
+
+" Plugin syntastic
+" close the window when going to insert mode or leaving
+" insert mode 
+" If you prefer the Omni-Completion tip window to close when a 
+" selection is made, these lines close it on movement in insert 
+" mode or when leaving insert mode
+"autocmd CursorMovedI * if pumvisible() == 0|pclose|lclose|endif
+"autocmd InsertLeave * if pumvisible() == 0|pclose|lclose|endif
+"autocmd CursorMoved * if pumvisible() == 0|pclose|lclose|endif
+
+" Plugin YouCompleteMe
 " map lopen (open locationlist, YouCompleteMe plugin) to '\lo'
 nnoremap <leader>lo :lopen<CR>	
 
 " map lclose (close locationlist, YouCompleteMe plugin) to '\lc'
 nnoremap <leader>lc :lclose<CR>	
 
-" set to always shows the signs column (gutter column)
-" require gitgutter plugin installed
-"let g:gitgutter_sign_column_always = 1
-
-" highlight signs column (gutter column)
-"highlight SignColumn guibg=DarkGreen guifg=LightGreen ctermbg=DarkGreen ctermfg=LightGreen
+"==============================================================================
+"                 Below are the configuration for specific plugin
 "==============================================================================
 
-"==============================================================================
-"                     Configure for Plugin Yggdroot/indentLine               
-"==============================================================================
-
-" map <leader>il : IndentLinesToggle<CR>
-"let g:indentLine_char = '|'
-let g:indentLine_char = '¦'
-" see if it is gvim or vim
-if has('gui_running')
-    "let g:indentLine_color_gui = '#A4E57E'
-    let g:indentLine_color_gui = Grey21
-else
-    let g:indentLine_color_term = 239
-endif
-"==============================================================================
-
-"==============================================================================
-"                     Configure for Plugin Lokaltog/powerline                
-"==============================================================================
-
-" setup process please refer to the offical website
-" of powerline (https://github.com/Lokaltog/powerline)
-set rtp+=~/.vim/bundle/powerline/powerline/bindings/vim
-"call vam#ActivateAddons(['powerline'])
-
-" Always display the statusline in all windows
-set laststatus=2
-
-" Hide the default mode text (e.g. -- INSERT -- below the 
-" statusline)
-"set noshowmode
-
-"let g:Powerline_symbols='unicode'
-"let Powerline_symbols="compatible"
-let g:Powerline_symbols="fancy"
-
-" set font
-"set guifont=Ubuntu\ Mono\ derivative\ Powerline\ Bold
-"set guifont=InconsolataForPowerline
-"set guifont=Consolas:h15
-"set guifont=PowerlineSymbols\ for\ Powerline
-"set guifont=Inconsolata\ for\ Powerline\ 10
-"set guifont=Monaco\ for\ Powerline
-"set guifont="Ubuntu\ Mono"
-"set guifont=PowerlineSymbols
-if has("gui_running")
-    if has("gui_gtk2")
-        set guifont=InconsolataForPowerline\ 12
-    elseif has("gui_macvim")
-        set guifont=Consolas:h20
-    else
-        set guifont=InconsolataForPowerline\ 13
-    endif
-else
-    set guifont=Ubuntu\ Mono\ derivative\ Powerline\ Bold
-endif
-
-" Fix termianl timeout when pressing escape
-" When you’re pressing Escape to leave insert mode in the terminal, 
-" it will by default take a second or another keystroke to leave 
-" insert mode completely and update the statusline. If you find this 
-" annoying, you can add the following snippet to your vimrc to escape 
-" insert mode immediately
-if ! has('gui_running')
-    set ttimeoutlen=10
-    augroup FastEscape
-        autocmd!
-        au InsertEnter * set timeoutlen=0
-        au InsertLeave * set timeoutlen=1000
-    augroup END
-endif
-"==============================================================================
-
-"==============================================================================
-"                     Configure for Plugin VAlloric/YouCompleteMe            
-"==============================================================================
+""==============================================================================
+""                     Configuration for Plugin YouCompleteMe
+""==============================================================================
 
 " Force a full, blocking compilation cycle
 " Calling this command will force YCM to immediately 
@@ -358,7 +316,7 @@ let g:ycm_complete_in_comments = 1
 
 " set to show the completion menu even when typing inside strings 
 " This is by default turned on so I closed it
-"let g:ycm_complete_in_strings = 1
+let g:ycm_complete_in_strings = 1
 
 " set YCM's identifier completer to also collect identifiers 
 " from strings and comments
@@ -382,17 +340,117 @@ let g:ycm_error_symbol = '✗'
 
 " set up for the warning symbol
 let g:ycm_warning_symbol = '⚠'
+""==============================================================================
 
-" close the stupid window when going to insert mode or leaving
-" insert mode 
-" If you prefer the Omni-Completion tip window to close when a 
-" selection is made, these lines close it on movement in insert 
-" mode or when leaving insert mode
-autocmd CursorMovedI * if pumvisible() == 0|pclose|lclose|endif
-autocmd InsertLeave * if pumvisible() == 0|pclose|lclose|endif
+"==============================================================================
+"                     Configuration for Plugin gitgutter
+"==============================================================================
 
-" automatically open fold everytime enter into buffer
-"normal zR\<CR>
-"autocommand BufWinEnter * :normal zR\<cr>
-autocmd BufWinEnter * :normal zR\<cr>
+" set to always shows the signs column (gutter column)
+" require gitgutter plugin installed
+"let g:gitgutter_sign_column_always = 1
 
+" highlight signs column (gutter column)
+"highlight SignColumn guibg=DarkGreen guifg=LightGreen ctermbg=DarkGreen ctermfg=LightGreen
+"==============================================================================
+
+"==============================================================================
+"                     Configuration for Plugin Yggdroot/indentLine               
+"==============================================================================
+"
+" map <leader>il : IndentLinesToggle<CR>
+"let g:indentLine_char = '|'
+let g:indentLine_char = '¦'
+" see if it is gvim or vim
+if has('gui_running')
+    "let g:indentLine_color_gui = '#A4E57E'
+    let g:indentLine_color_gui = Grey21
+else
+    let g:indentLine_color_term = 236
+endif
+"==============================================================================
+
+"==============================================================================
+"                     Configuration for Plugin Syntastic
+"==============================================================================
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+
+"==============================================================================
+
+""==============================================================================
+""                     Configure for Plugin Lokaltog/powerline                
+""==============================================================================
+"
+"" setup process please refer to the offical website
+"" of powerline (https://github.com/Lokaltog/powerline)
+"set rtp+=~/.vim/bundle/powerline/powerline/bindings/vim
+""call vam#ActivateAddons(['powerline'])
+"
+"" Always display the statusline in all windows
+"set guifont=Ubuntu\ Mono\ derivative\ Powerline
+"set guifont=Sauce\ Code\ Powerline\ Regular
+"set guifont=Consolas:h20
+
+" defaults fonts and size for Terminal.app of Pro profile is Monaco:h10
+"set guifont=Monaco
+set guifont=Ubuntu\ Mono\ derivative\ Powerline
+set laststatus=2
+"if !exists('g:airline_symbols')
+"  let g:airline_symbols = {}
+"endif
+"  let g:airline_symbols.space = "\ua0"
+let g:airline_powerline_fonts = 1
+
+
+"" Hide the default mode text (e.g. -- INSERT -- below the 
+"" statusline)
+""set noshowmode
+"
+""let g:Powerline_symbols='unicode'
+""let Powerline_symbols="compatible"
+"let g:Powerline_symbols="fancy"
+"
+"" set font
+""set guifont=Ubuntu\ Mono\ derivative\ Powerline\ Bold
+""set guifont=InconsolataForPowerline
+""set guifont=Consolas:h15
+""set guifont=PowerlineSymbols\ for\ Powerline
+""set guifont=Inconsolata\ for\ Powerline\ 10
+""set guifont=Monaco\ for\ Powerline
+""set guifont="Ubuntu\ Mono"
+""set guifont=PowerlineSymbols
+"if has("gui_running")
+"    if has("gui_gtk2")
+"        set guifont=InconsolataForPowerline\ 12
+"    elseif has("gui_macvim")
+"        set guifont=Consolas:h20
+"    else
+"        set guifont=InconsolataForPowerline\ 13
+"    endif
+"else
+"    set guifont=Ubuntu\ Mono\ derivative\ Powerline\ Bold
+"endif
+"
+"" Fix termianl timeout when pressing escape
+"" When you’re pressing Escape to leave insert mode in the terminal, 
+"" it will by default take a second or another keystroke to leave 
+"" insert mode completely and update the statusline. If you find this 
+"" annoying, you can add the following snippet to your vimrc to escape 
+"" insert mode immediately
+"if ! has('gui_running')
+"    set ttimeoutlen=10
+"    augroup FastEscape
+"        autocmd!
+"        au InsertEnter * set timeoutlen=0
+"        au InsertLeave * set timeoutlen=1000
+"    augroup END
+"endif
+""==============================================================================
