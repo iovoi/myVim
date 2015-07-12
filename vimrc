@@ -32,14 +32,14 @@ Plugin 'gmarik/Vundle.vim'
 "Plugin 'user/L9', {'name': 'newL9'}
 
 "Plugin Lokaltog/powerline
-Plugin 'bling/vim-airline'
 "Plugin 'scrooloose/nerdtree'
+"Plugin 'L9'
+Plugin 'bling/vim-airline'
 Plugin 'Yggdroot/indentLine'
 Plugin 'flazz/vim-colorschemes'
 Plugin 'rainux/vim-desert-warm-256'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'scrooloose/syntastic'
-"Plugin 'L9'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -105,7 +105,7 @@ else
     colorscheme desert
 endif
 
-" needn't set nocompatible because when exists .vimrc, nocompatible is set
+" needn't to set nocompatible because when exists .vimrc, nocompatible is set
 " automatically
 " set nocompatible
 
@@ -381,8 +381,14 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+"==============================================================================
 
-
+"==============================================================================
+"                     Configure for Plugin airline                
+"==============================================================================
+set guifont=Ubuntu\ Mono\ derivative\ Powerline
+set laststatus=2
+let g:airline_powerline_fonts = 1
 "==============================================================================
 
 ""==============================================================================
@@ -401,13 +407,13 @@ let g:syntastic_check_on_wq = 0
 
 " defaults fonts and size for Terminal.app of Pro profile is Monaco:h10
 "set guifont=Monaco
-set guifont=Ubuntu\ Mono\ derivative\ Powerline
-set laststatus=2
-"if !exists('g:airline_symbols')
-"  let g:airline_symbols = {}
-"endif
-"  let g:airline_symbols.space = "\ua0"
-let g:airline_powerline_fonts = 1
+"set guifont=Ubuntu\ Mono\ derivative\ Powerline
+"set laststatus=2
+""if !exists('g:airline_symbols')
+""  let g:airline_symbols = {}
+""endif
+""  let g:airline_symbols.space = "\ua0"
+"let g:airline_powerline_fonts = 1
 
 
 "" Hide the default mode text (e.g. -- INSERT -- below the 
