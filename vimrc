@@ -200,9 +200,12 @@ set fdm=indent
 set cursorline cursorcolumn
 "highlight CursorLine term=bold cterm=bold ctermfg=none ctermbg=none guibg=White guifg=Grey35
 "highlight CursorLine term=bold cterm=bold ctermfg=none ctermbg=none guibg=White guifg=Grey35 gui=underline
-highlight CursorLine term=bold cterm=bold ctermfg=none ctermbg=none guibg=White guifg=Grey35 gui=bold
+"highlight CursorLine term=bold cterm=bold ctermfg=none ctermbg=none guibg=White guifg=Grey35 gui=bold
+"highlight CursorLine term=bold cterm=bold ctermfg=none ctermbg=none guifg=fg guibg=bg gui=bold
+highlight CursorLine term=bold cterm=bold ctermfg=none ctermbg=none guibg=Grey20 gui=bold
 "hi cursorcolumn term=bold cterm=bold ctermfg=none ctermbg=none guibg=White guifg=Grey35
-hi cursorcolumn term=bold cterm=bold ctermfg=none ctermbg=none guibg=White guifg=Grey35 gui=bold
+"hi cursorcolumn term=bold cterm=bold ctermfg=none ctermbg=none guibg=White guifg=Grey35 gui=bold
+hi cursorcolumn term=bold cterm=bold ctermfg=none ctermbg=none guibg=Grey20 gui=bold
 "highlight cursorline term=bold cterm=bold ctermfg=darkred ctermbg=White guibg=Grey40 guifg=white
 "highlight cursorline term=bold term=bold ctermfg=darkred ctermfg=blue guibg=blue guifg=blue
 "highlight CursorLine term=bold cterm=bold guibg=Grey40 guifg=white
