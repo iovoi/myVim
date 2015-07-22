@@ -199,6 +199,7 @@ set fdm=indent
 "set cursorline cursorcolumn
 set cursorline cursorcolumn
 "highlight CursorLine term=bold cterm=bold ctermfg=none ctermbg=none guibg=White guifg=Grey35
+"highlight CursorLine term=bold cterm=bold ctermfg=none ctermbg=none guibg=White guifg=Grey35 gui=underline
 highlight CursorLine term=bold cterm=bold ctermfg=none ctermbg=none guibg=White guifg=Grey35 gui=bold
 "hi cursorcolumn term=bold cterm=bold ctermfg=none ctermbg=none guibg=White guifg=Grey35
 hi cursorcolumn term=bold cterm=bold ctermfg=none ctermbg=none guibg=White guifg=Grey35 gui=bold
