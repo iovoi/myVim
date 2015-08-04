@@ -127,7 +127,10 @@ set ic
 set hls
 
 " wrap text instead of being on one line
+" set linebreak
 set lbr
+set wrap
+set nolist "list disables linebreak
 
 " Allow the cursor to move just one character past the end of the line 
 " set virtualedit=onemore
