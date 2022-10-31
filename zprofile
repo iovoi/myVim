@@ -35,5 +35,8 @@ eval "$(jenv init -)"
 export CPPFLAGS="-I/opt/homebrew/opt/openjdk@11/include"
 
 # for pyenv
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
+#eval "$(pyenv init --path)"
 # use pyenv global xx.xx.xx to activate a specific version
