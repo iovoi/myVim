@@ -28,6 +28,8 @@ export NVM_DIR="$HOME/.nvm"
 export PATH="$HOME/.jenv/bin:$PATH"
 eval "$(jenv init -)"
 # use jenv global xx.xx to activate a specific version
+# use "jenv doctor" to check installation
+# use "jenv enable-plugin export" to enable export plugin to set $JAVA_HOME (intellij checks on this env variable to set java sdk)
 
 # for compiler to find java11
 export CPPFLAGS="-I/opt/homebrew/opt/openjdk@11/include"
